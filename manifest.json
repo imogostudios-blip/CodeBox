@@ -1,0 +1,25 @@
+{
+  "name": "CodeSpace — مساحة المطور",
+  "short_name": "CodeSpace",
+  "description": "مساحة تطوير محلية لإدارة المشاريع والملفات وتحرير الأكواد ومعاينتها",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f8f9fa",
+  "theme_color": "#f8f9fa",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "res/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "res/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

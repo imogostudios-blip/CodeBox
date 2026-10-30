@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CodeSpace — مساحة المطور</title>
+<meta name="theme-color" content="#f8f9fa"><meta name="description" content="مساحة تطوير محلية للمشاريع والملفات والأكواد">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="favicon.png"><link rel="stylesheet" href="src/styles/app.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <button class="icon-btn mobile-only" id="mobileMenu" aria-label="القائمة">☰</button>
+    <a class="brand" href="#home" aria-label="CodeSpace"><span class="brand-mark">&lt;/&gt;</span><span>Code<span class="brand-space">Space</span></span></a>
+    <div class="global-search"><span class="search-symbol">⌕</span><input id="globalSearch" placeholder="ابحث عن مشروع أو ملف…" autocomplete="off"><kbd>⌘ K</kbd></div>
+    <div class="top-actions"><span class="local-badge"><i></i> محلي على جهازك</span><button class="icon-btn" id="themeToggle" title="تبديل المظهر">◐</button><button class="avatar" title="مساحة محلية">م</button></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top"><div class="workspace-label">مساحة العمل</div><button class="workspace-switch"><span class="workspace-icon">C</span><span><b>مساحتي</b><small>تخزين المتصفح</small></span><span class="chevron">⌄</span></button></div>
+      <nav class="main-nav">
+        <button class="nav-item active" data-view="home"><span class="nav-ico">⌂</span> نظرة عامة</button>
+        <button class="nav-item" data-view="projects"><span class="nav-ico">▤</span> كل المشاريع <span class="nav-count" id="projectCount">0</span></button>
+        <button class="nav-item" data-view="recent"><span class="nav-ico">◷</span> تم فتحها مؤخراً</button>
+      </nav>
+      <div class="sidebar-section"><div class="section-heading"><span>المستودعات</span><button id="sideNewProject" class="tiny-add" title="مشروع جديد">＋</button></div><div id="sidebarProjects" class="sidebar-projects"><div class="sidebar-empty">لا توجد مشاريع بعد</div></div></div>
+      <div class="sidebar-bottom"><div class="storage-card"><div class="storage-top"><span>التخزين المحلي</span><span id="storageLabel">0 ملف</span></div><div class="storage-track"><span id="storageBar"></span></div><small>البيانات محفوظة في IndexedDB داخل هذا المتصفح.</small></div><button class="nav-item" id="importProjectBtn"><span class="nav-ico">⇧</span> استيراد ملفات</button><button class="nav-item" id="exportAllBtn"><span class="nav-ico">⇩</span> تصدير نسخة احتياطية</button></div>
+    </aside>
+    <main class="main-content" id="mainContent">
+      <section class="view active" id="homeView">
+        <div class="welcome-row"><div><div class="eyebrow"><span class="eyebrow-dot"></span> بيئة تطوير محلية</div><h1>مساحة عملك، <span>على طريقتك.</span></h1><p class="muted lead">أنشئ مشاريعك، حرّر ملفاتك، وعاين النتيجة مباشرة — كل شيء محفوظ في متصفحك.</p></div><button class="primary-btn" id="heroNewProject"><span>＋</span> مشروع جديد</button></div>
+        <div class="quick-grid"><button class="quick-card" id="quickCreate"><span class="quick-icon violet">＋</span><span><b>ابدأ مشروعاً</b><small>من الصفر أو بقالب جاهز</small></span><span class="quick-arrow">↗</span></button><button class="quick-card" id="quickUpload"><span class="quick-icon green">⇧</span><span><b>ارفع ملفاتك</b><small>ملف واحد أو مجلد كامل</small></span><span class="quick-arrow">↗</span></button><button class="quick-card" id="quickImport"><span class="quick-icon amber">⇩</span><span><b>استورد مشروعاً</b><small>من نسخة CodeSpace</small></span><span class="quick-arrow">↗</span></button></div>
+        <div class="section-title-row"><div><h2>مشاريعك</h2><p>آخر المشاريع التي عملت عليها</p></div><button class="text-btn" data-goto="projects">عرض الكل <span>←</span></button></div>
+        <div id="homeProjects" class="project-grid"><div class="empty-state"><div class="empty-art">{ }</div><h3>مساحتك تبدأ من هنا</h3><p>أنشئ أول مشروع، وستظهر ملفاتك هنا. لا حاجة إلى حساب أو خادم.</p><button class="primary-btn" id="emptyCreate">إنشاء أول مشروع</button></div></div>
+        <div class="info-strip"><span class="info-icon">ⓘ</span><div><b>ملفاتك تبقى على جهازك</b><p>يستخدم CodeSpace قاعدة IndexedDB داخل المتصفح. امسح بيانات الموقع أو استخدم متصفحاً آخر فقط بعد تصدير نسخة احتياطية.</p></div><button id="infoExport" class="text-btn">نسخ احتياطي</button></div>
+      </section>
+      <section class="view" id="projectsView"><div class="page-heading"><div><div class="eyebrow">مساحة العمل</div><h1>كل المشاريع</h1><p class="muted">إدارة المستودعات والملفات المحلية.</p></div><button class="primary-btn" id="projectsNew">＋ مشروع جديد</button></div><div class="filter-row"><div class="filter-search">⌕ <input id="projectFilter" placeholder="تصفية المشاريع"></div><span id="projectResults" class="muted small">0 مشاريع</span></div><div id="allProjects" class="project-grid"></div></section>
+      <section class="view" id="recentView"><div class="page-heading"><div><div class="eyebrow">نشاطك</div><h1>تم فتحها مؤخراً</h1><p class="muted">مشاريعك مرتبة حسب آخر تعديل.</p></div></div><div id="recentProjects" class="project-grid"></div></section>
+      <section class="view" id="editorView">
+        <div class="editor-topline"><div class="breadcrumbs"><button id="backHome" class="crumb-home">⌂</button><span>/</span><span id="crumbProject">مشروع</span><span>/</span><b id="crumbFile">index.html</b><span class="dirty-dot" id="dirtyDot" hidden></span></div><div class="editor-actions"><span class="saved-state" id="saveState">✓ محفوظ</span><button class="secondary-btn" id="downloadFile">تنزيل الملف</button><button class="secondary-btn" id="openPreview">▷ معاينة</button><button class="primary-btn compact" id="editorNewFile">＋ ملف</button><button class="icon-btn" id="editorMore" title="خيارات الملف">•••</button></div></div>
+        <div class="workspace" id="workspace"><aside class="file-sidebar"><div class="file-sidebar-head"><span>مستكشف الملفات</span><div><button class="mini-icon" id="newFileBtn" title="ملف جديد">＋</button><button class="mini-icon" id="newFolderBtn" title="مجلد جديد">▱</button><button class="mini-icon" id="uploadInProject" title="رفع ملفات">⇧</button></div></div><div class="repo-mini-info"><span class="repo-mini-icon">▤</span><div><b id="treeProjectName">مشروعي</b><small><span class="status-dot"></span> خاص · محلي</small></div></div><div class="file-tree" id="fileTree"></div><div class="file-sidebar-foot"><span>LOCAL STORAGE</span><span id="fileCountMini">0 ملف</span></div></aside>
+          <section class="code-area"><div class="editor-tabs" id="editorTabs"><div class="file-tab active"><span class="file-type html">5</span><span>index.html</span><span class="tab-close">×</span></div><button class="tab-add" id="tabAdd">＋</button><div class="editor-tab-spacer"></div><button class="view-toggle active" data-mode="code">{} الكود</button><button class="view-toggle" data-mode="split">تقسيم</button><button class="view-toggle" data-mode="preview">المعاينة</button></div>
+            <div class="editor-subbar"><div><span class="branch-mark">⑂</span><span id="currentPath">index.html</span><span class="sub-divider">·</span><span id="languageLabel">HTML</span></div><div class="editor-tools"><button id="formatBtn" title="تنسيق تقريبي">تنسيق</button><button id="wrapBtn" title="التفاف الأسطر">↩ التفاف</button><span class="sub-divider">|</span><span id="lineInfo">سطر 1، عمود 1</span></div></div>
+            <div class="editor-and-preview" id="editorAndPreview"><div class="code-editor-wrap" id="codeEditorWrap"><div class="line-gutter" id="lineGutter">1</div><textarea id="codeEditor" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="محرر الأكواد" dir="ltr"></textarea></div><div class="preview-pane" id="previewPane"><div class="preview-toolbar"><span><i class="live-dot"></i> معاينة مباشرة</span><button id="refreshPreview">⟳ تحديث</button><button id="popoutPreview">↗ فتح</button></div><iframe id="previewFrame" title="معاينة المشروع" sandbox="allow-scripts allow-forms allow-modals allow-popups"></iframe></div></div>
+            <div class="editor-statusbar"><span><i class="status-dot"></i> جاهز</span><span id="statusFile">HTML</span><span>UTF-8</span><span>LF</span><span id="statusCursor">Ln 1, Col 1</span><span class="status-spacer"></span><span>CodeSpace Local</span></div>
+          </section></div>
+      </section>
+    </main>
+  </div>
+</div>
+<input type="file" id="fileInput" multiple hidden><input type="file" id="folderInput" webkitdirectory directory multiple hidden><input type="file" id="backupInput" accept=".json,application/json" hidden>
+<div class="toast-region" id="toastRegion" aria-live="polite"></div>
+<div class="modal-backdrop" id="modalBackdrop" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><div class="eyebrow" id="modalEyebrow">مساحة العمل</div><h2 id="modalTitle">إنشاء مشروع جديد</h2></div><button class="icon-btn" id="modalClose" aria-label="إغلاق">×</button></div><div id="modalBody"></div><div class="modal-footer"><button class="secondary-btn" id="modalCancel">إلغاء</button><button class="primary-btn" id="modalConfirm">إنشاء المشروع</button></div></section></div>
+<script src="src/app.js"></script>
+</body></html>
